@@ -20,7 +20,7 @@
                                 <td><img src="./Images/menu_top_line.gif" width="182" height="5" /></td>
                             </tr>
                         </table>
-                        <ul class="RM">
+                                                                                    <ul class="RM">
                             <li th:each="menu:${menus.childMenu}"><a th:href="@{${menu.linkurl}}" target="main"th:text="${menu.name}"></a></li>
                         </ul>
                     </div>
