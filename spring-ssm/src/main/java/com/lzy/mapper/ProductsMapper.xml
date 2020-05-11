@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.lzy.mapper.ProductsMapper">
+ <select id="selectPro"  resultType="com.lzy.pojo.Products">
+ 	SELECT p.`productid`,p.`productname`,c.`categoryname`,pu.`Purposetypename`,g.`Gradelevelname`,pro.`productmanagername` FROM 
+ 	product AS p LEFT JOIN category AS c ON p.`categoryid` =c.`categoryid` LEFT JOIN  Purposetype AS pu ON p.Purposetypeid=pu.`Purposetypeid` LEFT JOIN Gradelevel AS g ON p.`Gradelevelid`=g.`Gradelevelid` LEFT JOIN productmanager AS pro ON p.`productmanagerid`=pro.`productmanagerid`;
+ </select>
+  
+  <update id="updatePro" parameterType="com.lzy.pojo.Products" >
+  update product
+    set productname = #{productname,jdbcType=VARCHAR},
+      manufacturer= #{manufacturer,jdbcType=VARCHAR},
+      categoryid = #{categoryid,jdbcType=INTEGER},
+      abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      Purposetypeid = #{Purposetypeid,jdbcType=INTEGER},
+      Gradelevelid = #{Gradelevelid,jdbcType=INTEGER},
+      Unitofmeasurement = #{Unitofmeasurement,jdbcType=VARCHAR},
+      Measuredvalue = #{Measuredvalue,jdbcType=INTEGER},
+      marketvalue = #{marketvalue,jdbcType=INTEGER},
+      Plannedcostprice = #{Plannedcostprice,jdbcType=INTEGER},
+      defectsliabilityperiod = #{defectsliabilityperiod,jdbcType=VARCHAR},
+      lifecycle = #{lifecycle,jdbcType=VARCHAR},
+      Company = #{Company,jdbcType=VARCHAR},
+      productmanagerid = #{productmanagerid,jdbcType=INTEGER},
+      Supplierset = #{Supplierset,jdbcType=VARCHAR},
+      Productdescription = #{Productdescription,jdbcType=VARCHAR},
+      Registrant = #{Registrant,jdbcType=VARCHAR},
+      Filingtime = #{Filingtime,jdbcType=VARCHAR}
+    where productid = #{productid,jdbcType=INTEGER}
+  </update>
+  <select id="selectId"  resultType="Products" >
+  select * from product where productid=#{productid}
+  </select>
+  <select id="selCate"  resultType="category">
+  select * from category 
+  </select>
+   <select id="selPurp"  resultType="Purposetype">
+  select * from purposetype 
+  </select>
+   <select id="selGra"  resultType="Gradelevel">
+  select * from gradelevel 
+  </select>
+   <select id="seljl"  resultType="productmanager">
+  select * from productmanager 
+  </select>
+ 
+  <delete id="deletePro" parameterType="java.lang.String">
+    delete from product
+    where productid = #{productid,jdbcType=INTEGER}
+  </delete>
+ </mapper>

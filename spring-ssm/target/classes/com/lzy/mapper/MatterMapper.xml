@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.lzy.mapper.MatterMapper">
+  <!-- 产品类型查询 -->
+ <select id="selcate"  resultType="Purposetype">
+ 	select*from Purposetype 
+ </select>
+  <!-- 查询产品设计单物料明细 -->
+     <select id="selD_MODULE_DETAILS" resultType="D_module_details">
+        select * from D_module_details where design_id=#{design_id}
+     </select>
+<!-- 产品档次查询 -->
+ <select id="selectpclass" resultType="Gradelevel">
+        select * from Gradelevel
+ </select>
+       <!-- 产品档案查询 -->
+   <select id="selecId" resultType="Product">
+select a.*,c.Purposetypename,d.Gradelevelname from product a,Purposetype c,Gradelevel d where a.Purposetypeid=c.Purposetypeid and a.Gradelevelid=d.Gradelevelid 
+	</select>
+ <!-- 物料设计单查询 -->
+	<select id="selD_module" resultType="d_module">
+		select design_id,productid,productname,designer from d_module 
+	</select>
+		<!-- 物料组成设计单 -->
+		<insert id="productWlZc">
+		insert into d_module values(null,#{sjdh},#{productid},#{productname},#{sjr},null,#{d},#{sjr},SYSDATE(),NULL,SYSDATE(),NULL,SYSDATE());
+		</insert>
+		<!-- 物料组成设计单 -->
+		<insert id="modelWlZc">
+		insert into d_module_details values(null,#{sjdh},#{bh},#{mc},null,#{dw},#{sl},#{dj},#{zje});
+		</insert>
+<!-- 查询通过审核的商品档案信息 -->
+		<select id="Selad" resultType="sproduct">
+SELECT p.productid,p.productname,c.categoryname,p.Plannedcostprice,p.company,pu.Purposetypename,g.Gradelevelname,pro.productmanagername 
+ FROM product AS p LEFT JOIN category AS c ON p.categoryid=c.categoryid LEFT JOIN  Purposetype AS pu ON p.Purposetypeid=pu.Purposetypeid LEFT JOIN Gradelevel AS g ON p.Gradelevelid=g.Gradelevelid LEFT JOIN productmanager AS pro ON p.productmanagerid=pro.productmanagerid
+ WHERE p.productid IN (SELECT p_id FROM audit WHERE pass=#{pass}) AND  p.categoryid=#{Purposetypeid};
+		</select>
+		<!-- 显示登记人 -->	
+  <select id="selectPermission" resultType="menu">
+   SELECT p.*
+		FROM Users u LEFT JOIN user_role ur
+		ON u.id=ur.USER_ID
+		LEFT JOIN  roles r
+		ON ur.ROLE_ID=r.CODE
+		LEFT JOIN MENU_ROLE pr
+		ON pr.ROLE_ID=r.CODE
+		LEFT JOIN menu p
+		ON p.id=pr.MENU_ID
+		WHERE username=#{username}
+  </select>	
+  <insert id="adddAudit">
+  INSERT INTO d_audit VALUE(NULL,DEFAULT,0);
+  </insert>		
+ </mapper>

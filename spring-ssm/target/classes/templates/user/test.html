@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>测试</title>
+</head>
+<body>
+用户添加：<a href="add.html">用户添加</a>
+<h1>测试产品登记添加</h1>
+<h1>--------------------------------------</h1>
+<div class="container" style="margin-left:300px">
+ <form th:action="@{/addUser}" method="post">
+产品名称：<input type="test"  name="productname"><br>
+制--造-商:<input type="test"  name="manufacturer"><br>
+产品类别：<select name="categoryid" >
+    <option value="">--请选择--</option>
+    <option th:each="a:${list1}" th:value="${a.categoryid}" th:text="${a.categoryname}">
+    </option>
+</select><br>
+产品简称：<input type="test"  name="abbreviation"><br>
+用途类型：<select name="Purposetypeid" >
+    <option value="">--请选择--</option>
+    <option th:each="aa:${list2}" th:value="${aa.Purposetypeid}" th:text="${aa.Purposetypename}">
+</select><br>
+档次级别：<select name="Gradelevelid">
+    <option value="">--请选择--</option>
+    <option th:each="aaa:${list3}" th:value="${aaa.Gradelevelid}" th:text="${aaa.Gradelevelname}">
+</select><br>
+计量单位：<input type="test"  name="Unitofmeasurement"><br>
+计--量-值:<input type="test"  name="Measuredvalue"><br>
+市-场-价：<input type="test" name="marketvalue"><br>
+计划成本价<input type="test"  name="Plannedcostprice"><br>
+保-修-期：<input type="test"  name="defectsliabilityperiod"><br>
+生命周期：<input type="test"  name="lifecycle"><br>
+单----位：<input type="test"  name="Company"><br>
+产品经理：<select name="productmanagerid">
+    <option value="">--请选择--</option>
+    <option th:each="aaaa:${list4}" th:value="${aaaa.productmanagerid}" th:text="${aaaa.productmanagername}">
+</select><br>
+供应商集合<br><textarea name="Supplierset" cols="30" rows="3"></textarea><br>
+产品描述：<br><textarea name="Productdescription" cols="30" rows="3"></textarea><br>
+登-记-人：<input type="test"  name="Registrant"><br>
+时间：<input type="test"  name="Filingtime"><br>
+<div style="margin-left:80px"><input type="submit" value="提交登记" name=""><br></div>
+</form>
+</div>
+  参考：当前时间
+	   <script language=Javascript > 
+            var now=new Date() 
+            document.write(1900+now.getYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+" "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds())
+        </script>
+</body>
+</html>

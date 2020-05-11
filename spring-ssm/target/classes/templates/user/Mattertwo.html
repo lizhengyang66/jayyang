@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>物料组成设计单</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<script type="text/javascript" src="js/axios.min.js"></script>
+<script type="text/javascript" src="js/vue-2.4.0.js"></script>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+<div id="app">
+		<div >
+			<div>
+				<main>
+				<div class="container">
+					<div class="row">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th>设计单编号</th>
+													<th>产品编号</th>
+													<th>产品名称</th>
+													<th>设计人</th>
+													<th>装配树</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="v in list">
+													<td>{{v.designId}}</td>
+													<td>{{v.productid}}</td>
+													<td>{{v.productname}}</td>
+													<td>{{v.designer}}</td>
+													<td>
+														<button type="button" class="btn btn-primary"
+															data-toggle="modal" data-target="#myModal"
+															@click="wlcx(v.designId)">装配树</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>	
+										<div class="modal fade" id="myModal" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-body">
+												<table class="table table-hover"></table>
+											<table class="table table-hover">
+											<thead>
+												<tr>
+													<th>物料编号</th>
+													<th>物料名称</th>
+													<th>描述</th>
+													<th>数量</th>
+													<th>单价</th>
+													<th>小计</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="v in cus">
+													<td>{{v.productid}}</td>
+													<td>{{v.productname}}</td>
+													<td>{{v.productdescribe}}</td>
+													<td>{{v.amount}}</td>
+													<td>{{v.cost_price}}</td>
+													<td>{{v.subtotal}}</td>
+												</tr>
+											</tbody>
+										</table>
+												</div>
+												<div class="modal-footer">
+													<button type="button" 
+														data-dismiss="modal">关闭</button>
+										
+												</div>
+											</div>
+										</div>
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+				</main>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+$(function(){
+    $('.search-bar .dropdown-menu a').click(function() {
+        var field = $(this).data('field') || '';
+        $('#search-field').val(field);
+        $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
+    });
+});
+</script>
+	<script>
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					list:[],
+					cus:[]
+				},
+				mounted(){//初始化显示完成调用
+					this.selectId();
+				},
+				methods:{
+					selectId(){
+						//发送异步请求，请求后端控制器，获取所有的信息
+						axios.get("selD_module").then(res=>{
+							this.list=res.data;
+						})				
+					},
+					wlcx(design_id){
+						//发送异步请求，请求后端控制器，获取所有的信息
+						axios.get("selD_module_details?design_id="+design_id).then(res=>{
+							this.cus=res.data;
+							})
+					}
+					}
+				
+			})
+			
+		</script>
+
+</body>
+</html>

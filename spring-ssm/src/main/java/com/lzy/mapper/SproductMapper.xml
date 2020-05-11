@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.lzy.mapper.SproductMapper">
+  <select id="selectPro"  resultType="com.lzy.pojo.sproduct">
+ 	SELECT p.`productid`,p.`productname`,c.`categoryname`,pu.`Purposetypename`,g.`Gradelevelname`,pro.`productmanagername` FROM 
+ 	product AS p LEFT JOIN category AS c ON p.`categoryid` =c.`categoryid` LEFT JOIN  Purposetype AS pu ON p.Purposetypeid=pu.`Purposetypeid` LEFT JOIN Gradelevel AS g ON p.`Gradelevelid`=g.`Gradelevelid` LEFT JOIN productmanager AS pro ON p.`productmanagerid`=pro.`productmanagerid`;
+ </select>
+ </mapper>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>1</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue-2.4.0.js" type="text/javascript"></script>
+<script src="js/axios.min.js" type="text/javascript"></script>
+<script src="js/qs.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="css/amazeui.min.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+	<div class="am-cf admin-main" id="app">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+				<div class="am-cf am-padding am-padding-bottom-0">
+					<div class="am-fl am-cf">
+						<strong class="am-text-primary am-text-lg"> </strong><small>
+							<i class="icon-home"></i>&gt;库存管理  &gt; 安全库存配置管理&gt;安全库存配置单复核
+						</small>
+					</div>
+				</div>
+				<hr>
+				<div class="container" witdh="100%"
+					style="margin-right: 0px; margin-left: 0px; width:100%">
+					<div class="am-g">
+					</div>
+					<div class="am-g" style="margin-top: -30px;">
+						<div class="am-u-sm-12">
+							<form class="am-form" action="user/delAll.action">
+								<table
+									class="am-table am-table-striped am-table-hover table-main">
+									<thead>
+										<tr>
+											<th class="table-id">配置单编号</th>
+											<th>产品编号</th>
+											<th>产品名称</th>
+											<th class="table-title">产品类别</th>
+											<th>产品用途</th>
+											<th>产品级别</th>
+											<th>产品经理</th>
+											<th>登记时间</th>
+											<th class="table-set">复核</th>
+										</tr>
+									</thead>
+									<tbody id="tUser">
+										<tr v-for="li in list">
+											<td>{{li.storeId}}</td>
+											<td>{{li.productId}}</td>
+											<td>{{li.productname}}</td>
+											<td>{{li.categoryname}}</td>
+											<td>{{li.purposetypename}}</td>
+											<td>{{li.gradelevelname}}</td>
+											<td>{{li.productmanagername}}</td>
+											<td>{{li.registerTime}}</td>
+											<td>
+												<div class="am-btn-toolbar">
+													<div class="am-btn-group am-btn-group-xs">
+														<button type="button"
+															class="am-btn am-btn-default am-btn-xs am-text-secondary btnEdit"
+															@click="goPass(li.id)">
+															<span class="am-icon-pencil-square-o"></span>复核
+														</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- content end -->
+		</div>
+	</div>
+
+	<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+	<!--[if (gte IE 9)|!(IE)]><!-->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<!--<![endif]-->
+	<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+	<script>
+		var vm=new Vue({
+			el:'#app',
+			data:{
+				keywords:'',
+				list:[]
+			},
+			mounted(){//初始化显示完成调用
+				this.getAllBrand();
+			},
+			methods:{
+				getAllBrand(){
+					//发送异步请求，请求后端控制器，获取所有的品牌信息
+					axios.get("selectshck").then(res=>{
+						//console.log(res)
+						this.list=res.data
+					}).catch(err=>{
+						console.log("请求失败")
+					})
+				},
+				search(){
+					//遍历list数组,如果品牌名称包含keywords中的内容,
+					//将品牌添加到新的list中
+					var newList=[]
+					this.list.forEach(brand=>{
+						if(brand.product.productname.includes(this.keywords)&&brand.a_date.includes(this.v_date)){
+							newList.push(brand)
+						}
+					})
+					//alert(newList.length)
+					return newList;
+				},
+				goPass(p){
+					//跳转页面
+					window.location.href="/selectxxpz?id="+p;
+				}
+			}
+		})
+		</script>
+</body>
+
+</html>

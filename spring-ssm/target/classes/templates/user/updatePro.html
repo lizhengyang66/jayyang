@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>产品更改</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style3.css}" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+</head>
+<body>
+	<div class="d1"> 
+			<form method="post" action="updatePro2">
+                      <span class="d3">产品信息</span>
+                      <div>
+                        <label style='color:black'>产品编号<span>:</span>
+                        </label>                    
+                          <input id="productid" th:value="${product.productid}" name="productid" style="border: none" readonly>
+                      </div>
+                      <span >&nbsp</span>
+                      <div>
+                        <label style='color:black'>产品名称 <span >:</span>
+                        </label>
+                          <input id="productname" th:value="${product.productname}" name="productname" style="border: none" readonly>
+                          
+                          <label style='color:black'>&nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp制造商 &nbsp&nbsp<span >:</span>
+                        </label>
+                          <input id="manufacturer" th:value="${product.manufacturer}" name="manufacturer" style="border: none" readonly>
+                      </div>
+                      <span >&nbsp</span>
+                      <div>
+                        <label style='color:black' name="categoryid">&nbsp&nbsp&nbsp&nbsp类别&nbsp&nbsp&nbsp<span >:</span>
+                        </label>
+                        <select  name="categoryid" style="width: 200px"  > 
+                        		<option th:each="c:${cat}" th:value="${c.categoryid}" th:text="${c.categoryname}"></option>
+                         </select>
+                           <label style='color:black'>&nbsp &nbsp &nbsp产品简称 <span >:</span>
+                        </label>
+                          <input id="abbreviation" th:value="${product.abbreviation}"  name="abbreviation" style="border: none" readonly>
+                      </div>
+               			<span >&nbsp</span>
+                      	 <div>
+                        <label style='color:black' for="Purposetypeid">用途类型<span >:</span>
+                        </label>
+                        <select  name="Purposetypeid" style="width: 200px">
+                        		<option th:each="p:${pur}" th:value="${p.Purposetypeid}" th:text="${p.Purposetypename}"></option>
+                         </select>
+                           
+                          
+                          	<label style='color:black' for="message-text">&nbsp &nbsp &nbsp档次级别 <span >:</span>
+                        </label>
+                        <select  name="Gradelevelid" style="width: 200px">
+										<option th:each="g:${gra}" th:value="${g.Gradelevelid}" th:text="${g.Gradelevelname}">最高级别</option>
+						</select>                      
+                      	</div>
+                    <span >&nbsp</span>
+                       <div>
+                        <label style='color:black'>计量单位 <span >:</span>
+                        </label>
+                          <input id="Unitofmeasurement" th:value="${product.Unitofmeasurement}"  name="Unitofmeasurement" style="border: none" readonly>
+                          
+                          <label style='color:black'>&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp计量值&nbsp&nbsp&nbsp<span >:</span>
+                        </label>
+                          <input id="Measuredvalue" th:value="${product.Measuredvalue}" name="Measuredvalue" style="border: none" readonly>
+                      </div>  
+                      <span >&nbsp</span>                    
+                      <div>
+                        <label style='color:black'>&nbsp&nbsp市场价&nbsp&nbsp<span >:</span>
+                        </label>
+                          <input id="marketvalue" th:value="${product.marketvalue}"  name="marketvalue" >
+                          
+                       <label style='color:black'>&nbsp &nbsp &nbsp &nbsp &nbsp 计划成本价&nbsp<span >:</span>
+                        </label>
+                          <input id="Plannedcostprice" th:value="${product.Plannedcostprice}" name="Plannedcostprice" >
+                        </div>  
+                         <span >&nbsp</span>                      
+                        <div>
+                        <label style='color:black'>&nbsp&nbsp保修期&nbsp&nbsp<span >:</span>
+                        </label>
+                          <input id="defectsliabilityperiod" th:value="${product.defectsliabilityperiod}"  name="defectsliabilityperiod"  style="border: none" readonly>
+                        
+                        <label style='color:black'>&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp 生命周期&nbsp<span >:</span>
+                        </label>
+                          <input id="lifecycle" th:value="${product.lifecycle}" name="lifecycle" style="border: none" readonly >
+                        </div>
+                        <span >&nbsp</span>  
+                        <div>
+                        <label style='color:black'>&nbsp&nbsp&nbsp单位&nbsp&nbsp&nbsp <span >:</span>
+                        </label>
+                          <input id="Company" th:value="${product.Company}"  name="Company" style="border: none" readonly>
+                          
+                          <label style='color:black'>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp产品经理&nbsp<span >:</span>
+                        </label>
+                         <select  name="productmanagerid" style="width: 200px">
+                        		<option th:each="j:${jl}" th:value="${j.productmanagerid}" th:text="${j.productmanagername}"></option>
+                         </select>
+                        </div>
+                        <span >&nbsp</span>                 
+                        <div>
+                        <label style='color:black'> &nbsp供应商&nbsp <span >:</span>
+                        </label>
+                          <input id="Supplierset" th:value="${product.Supplierset}" name="Supplierset">
+                          
+                        <label style='color:black'>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp产品描述&nbsp<span >:</span>
+                        </label>
+                          <input id="Productdescription" th:value="${product.Productdescription}"  name="Productdescription">
+                        </div>
+                        <span >&nbsp</span> 
+                          <div>
+                        <label style='color:black'> &nbsp登记人&nbsp <span >:</span>
+                        </label>
+                          <input id="Registrant" th:value="${product.Registrant}"  name="Registrant" style="border: none" readonly>
+                        
+                        <label style='color:black'>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp建档时间&nbsp<span >:</span>
+                        </label>
+                          <input id="Filingtime" th:value="${product.Filingtime}"  name="Filingtime" style="border: none" readonly/>
+                      </div>
+						<div class="d2"><button style="width:70px;height:40px" type="submit">修改</button></div>	                      
+                 </form>
+                 <script type="text/javascript">
+
+                 </script>
+	</div>
+</body>
+</html>

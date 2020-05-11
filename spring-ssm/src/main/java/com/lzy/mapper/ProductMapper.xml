@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.lzy.mapper.ProductMapper">
+  <!-- 查询产品类别类别 -->
+  <select id="insertCategoryYWB" resultType="CategoryYWB">
+  			SELECT A.categoryid,A.categoryname FROM category A;
+  </select>
+  <!-- //查询产品用途类型 -->
+   <select id="insertPurposetypeYWB" resultType="PurposetypeYWB">
+  			SELECT * FROM Purposetype;
+  </select>
+  <!-- //查询产品档次级别 -->
+   <select id="insertGradelevelYWB" resultType="GradelevelYWB">
+  			SELECT * FROM Gradelevel;
+  </select>
+  <!-- //查询产品客户经理 -->
+   <select id="insertProductmanagerYWB" resultType="ProductmanagerYWB">
+  			SELECT * FROM productmanager;
+  </select>
+  <!-- //添加产品登记 -->
+  <insert id="addProductYWB" >
+  INSERT INTO product VALUES
+  (null,#{productname},
+  #{manufacturer},#{categoryid},
+  #{abbreviation},#{Purposetypeid},
+  #{Gradelevelid},#{Unitofmeasurement},
+  #{Measuredvalue},#{marketvalue},
+  #{Plannedcostprice},#{defectsliabilityperiod},
+  #{lifecycle},#{Company},
+  #{productmanagerid},#{Supplierset},
+  #{Productdescription},#{Registrant},#{Filingtime})
+  </insert>
+  <insert id="addAudit">
+   	insert into audit values(null,default,0);
+  </insert>
+  <select id="selectsp" resultType="sproduct">
+  SELECT p.`productid`,p.`productname`,c.`categoryname`,pu.`Purposetypename`,g.`Gradelevelname`,pro.`productmanagername` FROM product AS p LEFT JOIN category AS c ON p.`categoryid` =c.`categoryid` LEFT JOIN  Purposetype AS pu ON p.Purposetypeid=pu.`Purposetypeid` LEFT JOIN Gradelevel AS g ON p.`Gradelevelid`=g.`Gradelevelid` LEFT JOIN productmanager AS pro ON p.`productmanagerid`=pro.`productmanagerid`;  </select>
+  <delete id="deleteProduct">
+   delete  from product where productid=#{pid};
+  </delete>
+  <delete id="deleteAudit">
+  	 delete   from audit where p_id=#{pid};
+  </delete>
+  <insert id="adddAudit">
+  INSERT INTO d_audit VALUE(null,DEFAULT,0);
+  </insert>
+  </mapper>

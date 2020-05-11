@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>物料组成</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/axios.min.js"></script>
+<script type="text/javascript"   src="js/vue-2.4.0.js"></script>
+<style>
+.show-grid [class^=col-] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #eee;
+    background-color: rgba(86,61,124,.15);
+    border: 1px solid #ddd;
+    border: 1px solid rgba(86,61,124,.2);
+}
+.show-grid {
+    margin-bottom: 15px;
+}
+</style>
+</head>
+<body>
+<div id="app">
+ <header class="lyear-layout-header"></header>
+<main class="lyear-layout-content">
+      <div class="container-fluid">
+        <div class="row">
+                <div  id="box1" class="table-responsive">
+                  <table border="1" width="80%" align="center" cellspacing="0" cellpadding="0"class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <td>产品编号</td>
+                        <td>产品名称</td>
+                        <td>类别</td>
+                        <td>用途类型</td>
+                        <td>产品档次</td>
+                        <td>产品经理名称</td>
+                        <td>制定设计单</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="mod in list" >
+                        <td>{{mod.productid}}</td>
+                        <td>{{mod.productname}}</td>
+                       	<td>{{mod.categoryname}}</td>
+                        <td>{{mod.purposetypename}}</td>
+                        <td>{{mod.gradelevelname}}</td>
+                        <td>{{mod.productmanagername}}</td>
+                        <td>
+                          <div class="btn-group">
+                             <button type="button"  id="sjbutton"  class="btn btn-primary  btn-xs" data-target=".bs-example-modal-lg" @click="Selidxx(mod.productid,mod.productname)">制定设计单</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+     </div>
+        <div id="box2" style="display:none"class="table-responsive">
+       			    <div>
+          				<p style="margin-left: 600px"class="lead">物料组成设计单</p>
+          				<label for="message-text" class="control-label" style="margin-left:200px">设计单编号:</label>
+					    <span id="sjdh" th:text="${sjbh}"></span>
+          	 			<a type="button"  @click="Selad2()" class="btn btn-primary"style="margin-left:700px"  data-toggle="modal" data-target="#myModal">添加物料</a>
+       				</div>
+          		 	<div  style="margin-left: 200px">
+						<label for="message-text" class="control-label">设计人:</label>
+						<span id="sjr" >admin</span>
+						<label for="message-text" style="margin-left: 200px"class="control-label">产品编号:</label>
+				   		<span name="productid" >{{productid}}</span>
+		          </div>
+		          <div style="margin-left: 200px">
+		          		<label for="message-text"class="control-label" >登记人:</label>
+						<span >admin</span>
+						<label for="message-text"  style="margin-left: 200px"class="control-label">产品名称:</label>
+						<span name="productname" >{{productname}}</span>
+			
+		          </div>
+		          <div style="margin-left: 70px">
+		           <table  border="1" width="80%" align="center" cellspacing="0" cellpadding="0" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>物料编号</th>
+                        <th>物料名称</th>
+                        <th>用途类型</th>
+                        <th>产品档次</th>
+                        <th>数量</th>
+                        <th>单位</th>
+                        <th>计划成本单价</th>
+                        <th>小计</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="wl in wlmxList">
+                       <td>{{wl.productid}}</td>
+                        <td>{{wl.productname}}</td>
+                       	<td>{{wl.lx}}</td>
+                        <td>{{wl.dc}}</td>
+                        <td>{{wl.amount}}</td>
+                        <td>{{wl.amount_unit}}</td>
+                        <td>{{wl.cost_price}}</td>
+                        <td>{{wl.subtotal}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                 <button style="margin-left: 700px" @click="QueRen()"class="btn btn-w-xs btn-primary">确认</button>
+                 <a href="/Mattertwo"class="btn btn-primary">查看设计单</a>
+                <!-- 模态框开始 -->
+                  <div  class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"id="myModal">
+                  <div  class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                 <h4 class="modal-title " id="myLargeModalLabel">添加物料</h4>
+                      </div>
+                      <div class="modal-body">
+                    	<form action="#" method="post">
+					   <div style="margin-left: 20px">
+			           <table border="1" width="80%" align="center" cellspacing="0" cellpadding="0"  class="table table-bordered">
+	                    <thead>
+	                      <tr>
+	                        <th>选择</th>
+	                        <th>物料编号</th>
+	                        <th>物料名称</th>
+	                        <th>用途类型</th>
+	                        <th>产品档次</th>
+	                        <th>数量</th>
+	                        <th>单位</th>
+	                        <th>计划成本单价</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      <tr v-for="(wl,index) in wllist" :key="index">
+			                    <td>
+		                          <label class="lyear-checkbox checkbox-primary" >
+		                            <input type="checkbox" :value="wl.productid"  class="xz"><span  class="xz"></span>
+		                          </label>
+		                        </td>
+		                        <td>{{wl.productid}}</td>
+                       			<td>{{wl.productname}}</td>
+                        		<td>{{wl.purposetypename}}</td>
+                       			<td>{{wl.gradelevelname}}</td>
+                       			<td>
+                       				 <input type="text" name="sl" value="1">
+                       			</td>
+                       			<td>{{wl.company}}</td>
+                       			<td>{{wl.plannedcostprice}}</td>
+	                      </tr>
+	                    </tbody>
+	                  </table>
+	                  </div>  
+		        		</form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" data-dismiss="modal"class="btn btn-default">关闭</button>
+                        <button type="button" class="btn btn-primary" @click="tianjia()" data-dissmiss="modal" data-dismiss="modal">点击添加</button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+             
+        </div>		
+        </div>
+              </div>
+            </div>
+      
+    </main>
+
+  </div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script>
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					s:[],
+					list:[],
+					wllist:[],
+					wlmxList:[],
+					productname:'',
+					productid:''
+				},
+				mounted(){//初始化显示完成调用
+					this.Selad();
+				},
+				methods:{
+					Selad(){
+						//发送异步请求，请求后端控制器，获取所有的品牌信息
+						axios.post("Selad").then(res=>{
+							this.list=res.data;
+						}).catch(err=>{
+							console.log("请求失败");
+						})
+						
+					},Selidxx(productid,productname){
+						 $("#box1").toggle();
+						 $("#box2").toggle();
+						 this.productname=productname;
+						 this.productid=productid;
+					},
+					Selad2(){//查询物料信息
+						axios.post("Selad2").then(res=>{
+							this.wllist=res.data;
+						}).catch(err=>{
+							console.log("请求失败");
+						})
+					},
+					tianjia:function(){//点击添加
+						var bh=[];//编号
+						var mc=[];//名称
+						var lx=[];//类型
+						var dc=[];//档次
+						var sl=[];//数量
+						var dw=[];//单位
+						var dj=[];//单价
+						
+						//获得选择的信息
+						$(".xz:checked").each(function(){
+							bh.push($(this).parent().parent().next().html());
+							mc.push($(this).parent().parent().next().next().html());
+							lx.push($(this).parent().parent().next().next().next().html());
+							dc.push($(this).parent().parent().next().next().next().next().html());
+							sl.push($(this).parent().parent().next().next().next().next().next().children().val());
+							dw.push($(this).parent().parent().next().next().next().next().next().next().html());
+							dj.push($(this).parent().parent().next().next().next().next().next().next().next().html());																
+						});
+						
+						var productid=this.productid;
+						var productname=this.productname;
+						var sjdh = $("#sjdh").text();
+						var sjr  = $("#sjr").text();
+					    var url = "productWlZc?bh="+bh+"&mc="+mc+"&lx="+lx+"&dc="+dc+"&sl="+sl+"&dw="+dw+"&dj="+dj+"&productid="+productid+"&productname="+productname+"&sjdh="+sjdh+"&sjr="+sjr+"";	
+					    axios.get(url).then(res=>{
+					    	alert('请求成功')
+					    	this.wlmxList=res.data;
+					    }).catch(err=>{
+							alert('请求失败')
+						})
+					},
+					QueRen(){
+						$("#box1").toggle();
+						$("#box2").toggle();
+						this.Selad();
+						alert('设计完成');
+					}
+			}
+				
+			})
+			
+		</script>
+</body>
+</html>

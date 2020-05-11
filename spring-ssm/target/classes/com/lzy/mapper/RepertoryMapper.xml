@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.lzy.mapper.RepertoryMapper">
+  <select id="selectsp" resultType="sproduct">
+  	SELECT p.`productid`,p.`productname`,c.`categoryname`,pu.`Purposetypename`,g.`Gradelevelname`,pro.`productmanagername` FROM product AS p LEFT JOIN category AS c ON p.`categoryid` =c.`categoryid` LEFT JOIN  Purposetype AS pu ON p.Purposetypeid=pu.`Purposetypeid` LEFT JOIN Gradelevel AS g ON p.`Gradelevelid`=g.`Gradelevelid` LEFT JOIN productmanager AS pro ON p.`productmanagerid`=pro.`productmanagerid` LEFT JOIN c_audit AS ca ON p.productmanagerid=ca.`d_id` WHERE p.`productid` IN (SELECT p_id FROM audit WHERE pass=1)AND ca.`pass`=0;
+  </select>
+  <select id="selectpro" resultType="Product">
+  	select * from Product where productid=#{0}
+  </select>
+  <insert id="addScell">
+  insert into S_CELL values(null,#{storeId},#{productId},#{productName},#{minAmount},#{maxAmount},#{maxCapacityAmount},#{unitOfStorage},0,#{config},#{register},#{registerTime},null,null,0);
+  </insert>
+  <select id="selectshkc" resultType="shkc">
+SELECT s.`id`,s.store_id,p.`productid`,p.`productname`,c.`categoryname`,pu.`Purposetypename`,g.`Gradelevelname`,pro.`productmanagername`,s.register_time,s.check_tag FROM  product AS p   LEFT JOIN S_CELL AS s ON s.product_id=p.productid  LEFT JOIN category AS c ON p.`categoryid` =c.`categoryid` LEFT JOIN  Purposetype AS pu ON p.Purposetypeid=pu.`Purposetypeid` LEFT JOIN Gradelevel AS g ON p.`Gradelevelid`=g.`Gradelevelid` LEFT JOIN productmanager AS pro ON p.`productmanagerid`=pro.`productmanagerid` WHERE s.check_tag=0; 
+ </select>
+ <select id="selectxxpz" resultType="Scell">
+ SELECT * FROM s_cell WHERE id=#{0};
+ </select>
+ <update id="upscell" parameterType="Scell">
+ update s_cell set min_amount=#{minAmount},max_amount=#{maxAmount},max_capacity_amount=#{maxCapacityAmount},unit_of_storage=#{unitOfStorage},config=#{config},checker=#{checker},check_time=#{checkTime},check_tag=1 where store_id=#{storeId}
+ </update>
+ <select id="selectScell" resultType="Scell">
+ SELECT * FROM s_cell
+ </select>
+ <select id="selectlook" resultType="Scell">
+ SELECT * FROM s_cell where store_id=#{0}
+ </select>
+  </mapper>
