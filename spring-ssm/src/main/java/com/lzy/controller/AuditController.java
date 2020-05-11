@@ -15,6 +15,8 @@ import com.lzy.service.AuditService;
 public class AuditController {
 	@Autowired
 	AuditService service;
+	
+	
 	@RequestMapping("/getall")
 	@ResponseBody
 	public List<Audit> getall(){

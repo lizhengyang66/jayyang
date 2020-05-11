@@ -28,6 +28,7 @@ public class RepertoryController {
 		return "/repertory/safety";
 	}
 	
+	
 	@RequestMapping("/selectSafety")
 	@ResponseBody
 	public List<sproduct> selectSafety() {

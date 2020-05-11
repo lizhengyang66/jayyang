@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.lzy.mapper.YwbMapper">
+ <insert id="ywbadd">
+ INSERT INTO M_APPLY 
+ VALUES(NULL,#{aAPPLY_ID},#{pPRODUCT_ID},#{pPRODUCT_NAME},#{pPRODUCT_DESCRIBE},#{tTYPE},#{aAMOUNT},#{dDESIGNER},#{rREMARK},#{rREGISTER},#{rREGISTER_TIME},#{cCHECKER},#{cCHECK_SUGGESTION},#{cCHECK_TIME},#{cCHECK_TAG},#{mMANUFACTURE_TAG})
+ </insert>
+ 
+ </mapper>

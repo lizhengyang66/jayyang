@@ -46,6 +46,7 @@ public class UsersController {
 		
 	}
 	
+	
 	@RequestMapping("/all")
 	public String getGoodsAll(Model model) {
 		List<Goods> list=service.selectAll();
@@ -105,7 +106,6 @@ public class UsersController {
 			
 		}
 		//姚文斌
-
 		@RequestMapping("/addUser")
 		public String addUser(ProductYWB productYWB) { 
 			serviceywb.addProductYWB(productYWB);

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.div1{
+      position: absolute;
+      left: 200px;
+     }
+</style>
+</head>
+<body>
+<h1>制定产品生产工序设计单</h1>
+<div id="ywb">
+<form th:action="@{/productScSj}" method="post">
+<div class="div1"> 
+生产计划编号：<input type="text" name="aAPPLY_ID"><br><br>
+产品编号：<input type="text" name="pPRODUCT_ID"><br><br>
+产品名称：<input type="text" name="pPRODUCT_NAME"><br><br>
+产品描述：<input type="text" name="pPRODUCT_DESCRIBE"><br><br>
+用途类型：<input type="text" name="tTYPE"><br><br>
+数量：<input type="text" name="aAMOUNT"><br><br>
+设计人：<input type="text" name="dDESIGNER"><br><br>
+备注：<input type="text" name="rREMARK"><br><br>
+登记人：<input type="text" name="rREGISTER"><br><br>
+</div>
+登记时间：<input type="text" name="rREGISTER_TIME"><br>
+复核人：<input type="text" name="cCHECKER"><br>
+审核意见：<input type="text" name="cCHECK_SUGGESTION"><br>
+审核时间：<input type="text" name="cCHECK_TIME"><br>
+审核标志：<input type="text" name="cCHECK_TAG"><br>
+派工标志 ：<input type="text" name="mMANUFACTURE_TAG"><br>
+<input type="submit" value="ADD">
+</form>
+</div>
+
+</body>
+</html>
